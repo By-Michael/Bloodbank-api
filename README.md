@@ -67,6 +67,4 @@ hardcoded fallback in `AppConfig.java`) in the desktop app only needs one
 value: the API's base URL. No DB host, user, or password ships with the app
 at all.
 
-Free-tier Render note: the service spins down after inactivity and takes a
-few seconds to wake on the next request — fine for a small/demo deployment,
-worth upgrading to a paid instance if you need it always-warm.
+
