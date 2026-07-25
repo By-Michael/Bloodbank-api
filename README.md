@@ -56,15 +56,16 @@ npm run dev
 full database privileges. This API is now the *only* thing holding real DB
 credentials, so it's worth that ten minutes of `GRANT` statements.
 
-## What still needs to happen on the Java side
+## Java client status
 
-The Swing app's DAO classes (`UserDAO`, `DonorDAO`, etc.) currently talk to
-MySQL directly with JDBC. To actually use this API, those DAOs need to be
-rewritten to make HTTP calls (e.g. with `java.net.http.HttpClient`) against
-these endpoints instead of running SQL — the API's job is to be the only
-thing that touches the database. `.env` in the desktop app then only needs
-one value: the API's base URL. No DB host, user, or password ships with the
-app at all once that swap is done.
+The desktop app has been rewritten to use this API — see the
+`bloodbank-client-api-integration` build. Every panel (`Login`,
+`DonorRegistration`, `DonorDashboard`, `StaffDashboard`,
+`HospitalDashboard`, `AdminDashboard`) calls a `service/` class that talks
+to these endpoints over HTTPS instead of running SQL directly. `.env` (or a
+hardcoded fallback in `AppConfig.java`) in the desktop app only needs one
+value: the API's base URL. No DB host, user, or password ships with the app
+at all.
 
 Free-tier Render note: the service spins down after inactivity and takes a
 few seconds to wake on the next request — fine for a small/demo deployment,
